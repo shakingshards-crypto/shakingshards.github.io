@@ -7,6 +7,8 @@ category: 教程
 cover: https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200
 ---
 
+> 在线预览：[astro-theme-sify-demo.vercel.app](https://astro-theme-sify-demo.vercel.app/) | GitHub：[santisify/astro-theme-sify](https://github.com/santisify/astro-theme-sify)
+
 ## 环境准备
 
 确保已安装 [Bun](https://bun.sh)（推荐）或 Node.js 18+。
@@ -20,7 +22,7 @@ curl -fsSL https://bun.sh/install | bash
 
 ```bash
 # 克隆项目
-git clone <your-repo-url> my-blog
+git clone https://github.com/santisify/astro-theme-sify.git my-blog
 cd my-blog
 bun install
 ```

@@ -1,34 +1,45 @@
 # Sify Blog
 
-基于 Astro 6 + Tailwind CSS v4 的现代化博客主题，支持亮色/暗色模式、MDX、数学公式、全站搜索、评论系统。
+基于 Astro 6 + Tailwind CSS v4 的现代化博客主题。
 
-![Astro](https://img.shields.io/badge/Astro-6.x-BC52EE?logo=astro)
-![Tailwind](https://img.shields.io/badge/Tailwind-v4-06B6D4?logo=tailwindcss)
-![License](https://img.shields.io/badge/license-MIT-blue)
+[![GitHub](https://img.shields.io/badge/GitHub-santisify/astro--theme--sify-181717?logo=github)](https://github.com/santisify/astro-theme-sify)
+[![Demo](https://img.shields.io/badge/Demo-astro--theme--sify--demo.vercel.app-06B6D4?logo=vercel)](https://astro-theme-sify-demo.vercel.app/)
+[![Astro](https://img.shields.io/badge/Astro-6.x-BC52EE?logo=astro)](https://astro.build)
+[![Tailwind](https://img.shields.io/badge/Tailwind-v4-06B6D4?logo=tailwindcss)](https://tailwindcss.com)
+[![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+
+## Demo
+
+在线预览：[astro-theme-sify-demo.vercel.app](https://astro-theme-sify-demo.vercel.app/)
 
 ## 特性
 
-- **Markdown / MDX** — 支持标准 Markdown 和 JSX 内嵌组件
-- **KaTeX 数学公式** — 行内与块级 LaTeX 数学公式渲染
-- **代码高亮** — Shiki 语法高亮 + 一键复制按钮
-- **暗色模式** — 跟随系统偏好 + 手动切换，`localStorage` 持久化
-- **全站搜索** — `Ctrl+K` 唤出，匹配标题/正文，高亮显示
+- **Markdown / MDX** — 标准 Markdown + JSX 内嵌组件
+- **KaTeX 数学公式** — `$...$` 行内与 `$$...$$` 块级 LaTeX 渲染
+- **Mermaid 图表** — 流程图、序列图、类图、甘特图等
+- **代码高亮** — Shiki 双主题，语言标签，一键复制，行号
+- **暗色模式** — 跟随系统 + 手动切换，无闪烁
+- **全站搜索** — `Ctrl+K` 唤出，标题 + 正文匹配，高亮显示
 - **Waline 评论** — 开箱即用的评论系统
-- **友链页面** — 好友链接 + 友链圈文章动态
-- **文章封面** — 支持远程 URL 和本地图片
-- **RSS 订阅** — 自动生成 `/rss.xml`
-- **响应式设计** — 桌面端双栏 + 移动端抽屉侧边栏
-- **SEO 优化** — Open Graph、Twitter Card、Canonical URL
-- **侧边栏** — 个人信息、分类/标签云、随机推荐
+- **文章系列** — 同系列文章自动归组
+- **分享按钮** — Twitter / 微信扫码 / 复制链接 / 原生分享
+- **阅读进度** — 顶部进度条 + 目录自动高亮
+- **友链** — 好友链接 + 友链圈动态 + 健康检测
+- **i18n** — 中英文切换
+- **PWA** — 可安装，支持离线访问
+- **SEO** — Open Graph、Twitter Card、JSON-LD 结构化数据
+- **RSS** — 自动生成 `/rss.xml`
+- **响应式** — 移动端完美适配，底部抽屉目录，侧边栏 Drawer
 
 ## 技术栈
 
 | 技术 | 用途 |
 |------|------|
-| [Astro 6](https://astro.build) | 静态站点生成 |
-| [Tailwind CSS v4](https://tailwindcss.com) | CSS 框架 |
-| [Shiki](https://shiki.style) | 代码语法高亮 |
+| [Astro 6](https://astro.build) | 静态站点生成 + View Transitions |
+| [Tailwind CSS v4](https://tailwindcss.com) | CSS 框架（`@theme` 语法） |
+| [Shiki](https://shiki.style) | 代码语法高亮（双主题） |
 | [KaTeX](https://katex.org) | 数学公式渲染 |
+| [Mermaid.js](https://mermaid.js.org) | 图表渲染 |
 | [MDX](https://mdxjs.com) | Markdown + JSX |
 | [Waline](https://waline.js.org) | 评论系统 |
 
@@ -41,7 +52,7 @@
 ### 安装
 
 ```bash
-git clone <your-repo-url> my-blog
+git clone https://github.com/santisify/astro-theme-sify.git my-blog
 cd my-blog
 bun install
 ```
@@ -132,8 +143,9 @@ updated: 2024-06-15     # 可选，更新日期
 tags: [标签1, 标签2]
 category: 分类
 cover: ./images/cover.webp  # 远程 URL 或本地相对路径
-pinned: false              # 是否置顶
-draft: false               # 草稿不入 RSS
+series: 系列名称            # 可选，同系列文章自动归组
+pinned: false               # 是否置顶
+draft: false                # 草稿不入 RSS
 ---
 ```
 
@@ -204,6 +216,19 @@ $$
 $$
 ```
 
+## Mermaid 图表
+
+使用 ` ```mermaid ` 代码块即可在文章中插入图表：
+
+````markdown
+```mermaid
+graph LR
+    A[输入] --> B[处理] --> C[输出]
+```
+````
+
+支持流程图、序列图、类图、甘特图、饼图、状态图、ER 图等。自动适配暗色模式。
+
 ## 评论系统
 
 配置 Waline 评论服务器：
@@ -228,13 +253,12 @@ walineInit({
   "friends": [
     {
       "id_name": "cf-links",
-      "desc": "好友链接",
-      "link_list": [
+      "data": [
         {
           "name": "Friend's Blog",
           "link": "https://friend.example.com",
           "avatar": "https://friend.example.com/avatar.jpg",
-          "intro": "个人简介"
+          "desc": "个人简介"
         }
       ]
     }
@@ -261,22 +285,6 @@ walineInit({
 
 构建后直接将 `dist/` 目录内容上传到任意静态文件服务器。
 
-### 部署前检查
-
-```bash
-# 构建
-bun run build
-
-# 预览（可选）
-bun preview
-```
-
-确保以下文件存在：
-- `dist/index.html`
-- `dist/rss.xml`
-- `dist/search-index.json`
-- `dist/favicon.svg`
-
 ## 目录结构
 
 ```
@@ -287,11 +295,15 @@ astro-theme-sify/
 │   ├── content/
 │   │   ├── blog/         # 博客文章
 │   │   └── weekly/       # 周刊文章
+│   ├── i18n/             # 翻译文件
 │   ├── layouts/          # 布局组件
 │   ├── pages/            # 路由页面
-│   └── styles/           # 全局样式
+│   ├── styles/           # 全局样式
+│   └── utils/            # 工具函数
 ├── public/               # 静态资源
-│   └── links.json        # 友链数据
+│   ├── links.json        # 友链数据
+│   ├── manifest.json     # PWA 清单
+│   └── sw.js             # Service Worker
 ├── astro.config.ts       # Astro 配置
 ├── src/consts.ts         # 站点配置
 ├── src/content.config.ts # 内容集合 Schema

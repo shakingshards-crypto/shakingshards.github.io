@@ -10,9 +10,14 @@ cover: https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200
 
 Sify Blog 是一个功能完备的 Astro 博客主题，基于 Astro 6 和 Tailwind CSS v4 构建。如果你正在寻找一个简洁、现代、易于定制的博客模板，那你就来对地方了。
 
+- [在线预览 Demo](https://astro-theme-sify-demo.vercel.app/)
+- [GitHub 仓库](https://github.com/santisify/astro-theme-sify)
+
 ## 快速开始
 
 ```bash
+git clone https://github.com/santisify/astro-theme-sify.git my-blog
+cd my-blog
 bun install
 bun dev
 ```
