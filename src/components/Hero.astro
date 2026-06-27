@@ -25,19 +25,19 @@ for (const post of sorted) {
 }
 ---
 
-<section class="relative overflow-hidden rounded-2xl mb-10">
-  <div class="absolute inset-0">
+<section class="relative overflow-hidden rounded-2xl mb-10" data-hero>
+  <div class="absolute inset-0" data-hero-parallax>
     <img
       src={SITE_COVER}
       alt=""
-      class="w-full h-full object-cover"
+      class="w-full h-full object-cover scale-110"
       aria-hidden="true"
     />
     <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/70"></div>
   </div>
 
   <div class="relative px-6 py-12 sm:px-10 sm:py-16 lg:py-20 text-center text-white">
-    <div class="mb-8">
+    <div class="mb-8 hero-reveal" data-hero-reveal>
       <img
         src={SITE_AVATAR}
         alt={SITE_AUTHOR}
@@ -47,14 +47,14 @@ for (const post of sorted) {
       />
     </div>
 
-    <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 tracking-tight">
+    <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 tracking-tight hero-reveal" data-hero-reveal>
       {SITE_TITLE}
     </h1>
-    <p class="text-lg sm:text-xl text-white/80 font-light mb-6">
+    <p class="text-lg sm:text-xl text-white/80 font-light mb-6 hero-reveal" data-hero-reveal>
       {SITE_DESCRIPTION}
     </p>
 
-    <div class="flex items-center justify-center gap-4 mb-8">
+    <div class="flex items-center justify-center gap-4 mb-8 hero-reveal" data-hero-reveal>
       {SOCIAL_LINKS.map((link) => (
         <a
           href={link.href}
@@ -77,7 +77,7 @@ for (const post of sorted) {
       ))}
     </div>
 
-    <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-10">
+    <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-10 hero-reveal" data-hero-reveal>
       <a href="/archives" class="group text-center">
         <div class="text-2xl sm:text-3xl font-bold group-hover:scale-110 transition-transform">
           {sorted.length}
@@ -101,3 +101,53 @@ for (const post of sorted) {
     </div>
   </div>
 </section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  function initHero() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const hero = document.querySelector('[data-hero]');
+    const parallaxLayer = document.querySelector('[data-hero-parallax]');
+    const reveals = document.querySelectorAll('[data-hero-reveal]');
+
+    if (!hero || !parallaxLayer) return;
+
+    gsap.fromTo(parallaxLayer,
+      { y: 0 },
+      {
+        y: 50,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: hero,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+        },
+      }
+    );
+
+    if (reveals.length > 0) {
+      gsap.fromTo(reveals,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power3.out',
+          delay: 0.2,
+        }
+      );
+    }
+  }
+
+  initHero();
+  document.addEventListener('astro:after-swap', () => {
+    setTimeout(initHero, 100);
+  });
+</script>

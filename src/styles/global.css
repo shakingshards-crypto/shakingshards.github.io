@@ -25,6 +25,13 @@
   --color-bg: #f5f5f5;
   --color-card: #ffffff;
   --color-border: #e8e8e8;
+  --color-text-rgb: 44 62 80;
+  --color-text-secondary-rgb: 127 140 141;
+  --color-bg-rgb: 245 245 245;
+  --color-card-rgb: 255 255 255;
+  --color-border-rgb: 232 232 232;
+  --color-primary-rgb: 233 83 106;
+  --theme-transition-radius: 120vmax;
   color-scheme: light;
 }
 
@@ -34,6 +41,12 @@
   --color-bg: #1a1a2e;
   --color-card: #1e2a45;
   --color-border: #2a2a4a;
+  --color-text-rgb: 232 232 232;
+  --color-text-secondary-rgb: 153 153 153;
+  --color-bg-rgb: 26 26 46;
+  --color-card-rgb: 30 42 69;
+  --color-border-rgb: 42 42 74;
+  --color-primary-rgb: 242 160 174;
   color-scheme: dark;
 }
 
@@ -294,5 +307,85 @@ html {
 
 .dark .code-block-wrapper pre code .line::before {
   color: rgba(255, 255, 255, 0.2);
+}
+
+/* Grain overlay */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+.dark .grain-overlay {
+  opacity: 0.04;
+  mix-blend-mode: screen;
+}
+
+/* Scroll reveal animations */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-up.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Theme transition sync */
+.theme-transitioning,
+.theme-transitioning *,
+.theme-transitioning *::before,
+.theme-transitioning *::after {
+  transition: background-color 0.6s ease,
+              color 0.6s ease,
+              border-color 0.6s ease,
+              box-shadow 0.6s ease,
+              fill 0.6s ease,
+              stroke 0.6s ease !important;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-up {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .grain-overlay {
+    display: none;
+  }
+}
+
+/* Card tilt */
+.card-tilt {
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Nav capsule morph */
+.nav-pill {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  backdrop-filter: blur(22px) saturate(1.08);
+  -webkit-backdrop-filter: blur(22px) saturate(1.08);
+  z-index: 50;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.6s ease,
+              box-shadow 0.6s ease;
 }
 
