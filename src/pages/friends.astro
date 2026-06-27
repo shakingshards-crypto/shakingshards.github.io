@@ -78,13 +78,13 @@ const articles = data?.article_data || [];
 
 <BaseLayout title="友链">
   <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
-    <h1 class="text-2xl font-bold mb-2 flex items-center gap-2">
-      <span class="w-1 h-6 bg-primary rounded-full inline-block"></span>
-      友链
-    </h1>
-    <p class="text-sm text-gray-400 dark:text-gray-500 mb-8">
-      友情链接 &amp; 友链圈最新文章动态
-    </p>
+    <header class="mb-10">
+      <p class="text-sm text-primary font-medium mb-2 tracking-wide uppercase">Friends</p>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-3">友情链接</h1>
+      <p class="text-gray-500 dark:text-gray-400">
+        友情链接 &amp; 友链圈最新文章动态
+      </p>
+    </header>
 
     {
       friendList.length > 0 && (

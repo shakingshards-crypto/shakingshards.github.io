@@ -1,7 +1,7 @@
 ---
 title: 周刊 #1 — 本周前端动态
 description: 第一期周刊，包含 Astro 6.x 更新、Tailwind CSS v4 实践、Bun 生态进展等前端技术动态。
-date: 2024-06-02
+date: 2026-06-10
 tags: [前端, Astro, CSS]
 issue: 1
 cover: https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=1200
