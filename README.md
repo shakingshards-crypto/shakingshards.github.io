@@ -276,12 +276,21 @@ walineInit({
 
 ### Cloudflare Pages
 
-| 配置项 | 值 |
-|--------|-----|
-| 构建命令 | `bun run build` |
-| 输出目录 | `dist` |
+首先fork当前仓库到自己的github
+
+![cf1](./docs/cf-deploy1.png)
+
+![cf2](./docs/cf-deploy2.png)
+
+![cf3](./docs/cf-deploy3.png)
+
+![cf4](./docs/cf-deploy4.png)
+
+![cf5](./docs/cf-deploy5.png)
 
 ### 其他静态托管
+
+在本地命令行运行`bun install && bun run build`
 
 构建后直接将 `dist/` 目录内容上传到任意静态文件服务器。
 
