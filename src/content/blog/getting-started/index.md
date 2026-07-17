@@ -1,53 +1,53 @@
 ---
-title: 从零搭建博客
-description: 详细介绍如何基于 Sify Blog 主题从零搭建个人博客，包括安装、配置、编写文章和部署全流程。
+title: Building a Blog from Scratch
+description: A complete guide to building a personal blog from scratch using the Sify Blog theme, including installation, configuration, writing posts, and deployment.
 date: 2026-06-10
-tags: [教程, 入门]
-category: 教程
+tags: [Tutorial, Beginner]
+category: Tutorial
 cover: https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200
 ---
 
-> 在线预览：[astro-sify-demo.lazy-boy-acmer.cn](https://astro-sify-demo.lazy-boy-acmer.cn/) | GitHub：[santisify/astro-theme-sify](https://github.com/santisify/astro-theme-sify)
+> Live Demo: [astro-sify-demo.lazy-boy-acmer.cn](https://astro-sify-demo.lazy-boy-acmer.cn/) | GitHub: [santisify/astro-theme-sify](https://github.com/santisify/astro-theme-sify)
 
-## 环境准备
+## Prerequisites
 
-确保已安装 [Bun](https://bun.sh)（推荐）或 Node.js 18+。
+Make sure you have **Bun** (recommended) or **Node.js 18+** installed.
 
 ```bash
-# 安装 Bun
+# Install Bun
 curl -fsSL https://bun.sh/install | bash
 ```
 
-## 创建项目
+## Create the Project
 
 ```bash
-# 克隆项目
+# Clone the repository
 git clone https://github.com/santisify/astro-theme-sify.git my-blog
 cd my-blog
-bun install #如果是node环境 npm install
+bun install # If you're using Node.js, run: npm install
 ```
 
-### 常用命令
+### Common Commands
 
 ```bash
-# bun
-bun dev          # 启动开发服务器 (localhost:4321)
-bun run build    # 构建生产版本
-bun preview      # 预览生产构建
+# Bun
+bun dev          # Start the development server (localhost:4321)
+bun run build    # Build the production version
+bun preview      # Preview the production build
 
-# npm 
+# npm
 npm run dev
 npm run build
 npm run preview
 ```
 
-## 配置站点
+## Configure the Site
 
-编辑 `src/consts.ts`，修改站点基本信息：
+Edit `src/consts.ts` and update your site's basic information:
 
 ```typescript
 export const SITE_TITLE = 'My Blog';
-export const SITE_DESCRIPTION = '这是我的个人博客';
+export const SITE_DESCRIPTION = 'This is my personal blog';
 export const SITE_AUTHOR = 'Your Name';
 export const SITE_URL = 'https://example.com';
 export const SITE_AVATAR = '/avatar.png';
@@ -55,19 +55,19 @@ export const SITE_COVER = '/cover.jpg';
 export const PAGE_SIZE = 10;
 ```
 
-### 导航菜单
+### Navigation Menu
 
 ```typescript
 export const NAV_ITEMS = [
-  { label: '首页', href: '/' },
-  { label: '周刊', href: '/weekly' },
-  { label: '文章', href: '/archives' },
-  { label: '友链', href: '/friends' },
-  { label: '关于', href: '/about' },
+  { label: 'Home', href: '/' },
+  { label: 'Weekly', href: '/weekly' },
+  { label: 'Articles', href: '/archives' },
+  { label: 'Friends', href: '/friends' },
+  { label: 'About', href: '/about' },
 ];
 ```
 
-### 社交链接
+### Social Links
 
 ```typescript
 export const SOCIAL_LINKS = [
@@ -76,60 +76,60 @@ export const SOCIAL_LINKS = [
 ];
 ```
 
-## 编写文章
+## Writing Posts
 
-在 `src/content/blog/` 目录下创建 `.md` 或 `.mdx` 文件。
+Create `.md` or `.mdx` files inside the `src/content/blog/` directory.
 
-### Frontmatter 字段
+### Frontmatter Fields
 
 ```yaml
 ---
-title: 文章标题          # 必填
-description: 文章描述    # 可选
-date: 2024-06-01         # 必填
-tags: [标签1, 标签2]     # 可选，默认 []
-category: 教程           # 可选
-cover: https://example.com/cover.jpg  # 可选，支持远程 URL 或本地路径
-series: 系列名称         # 可选，同系列文章自动归组
-pinned: false            # 是否置顶
-draft: false             # 是否为草稿（构建时过滤）
+title: Post Title                     # Required
+description: Post description         # Optional
+date: 2024-06-01                      # Required
+tags: [Tag1, Tag2]                    # Optional (default: [])
+category: Tutorial                    # Optional
+cover: https://example.com/cover.jpg  # Optional (remote URL or local path)
+series: Series Name                   # Optional (groups related posts automatically)
+pinned: false                         # Pin this post to the top
+draft: false                          # Exclude from production build if true
 ---
 ```
 
-### 文章存放方式
+### Post Organization
 
-支持两种目录结构：
+Two directory structures are supported:
 
-```
+```text
 src/content/blog/
-├── my-post.md              # 单文件形式
+├── my-post.md              # Single-file format
 └── my-post/
-    ├── index.md            # 目录形式（推荐，可存放本地图片）
-    ├── cover.webp          # 封面图
-    └── images/             # 文章内图片
+    ├── index.md            # Folder format (recommended for local images)
+    ├── cover.webp          # Cover image
+    └── images/             # Images used in the article
 ```
 
-### 本地图片
+### Local Images
 
-使用相对路径引用本地图片：
+Reference local images using relative paths:
 
 ```yaml
 cover: ./cover.webp
 ```
 
-图片路径会通过 `src/pages/_imageStore.ts` 自动解析。
+Image paths are automatically resolved through `src/pages/_imageStore.ts`.
 
-## 配置评论
+## Configure Comments
 
-在 `src/components/waline/Comment.astro` 中配置 Waline 服务端地址：
+Edit `src/components/waline/Comment.astro` and set your Waline server URL:
 
 ```typescript
 const serverURL = 'https://your-waline-server.vercel.app';
 ```
 
-## 配置友链
+## Configure Friend Links
 
-编辑 `public/links.json`，添加好友链接：
+Edit `public/links.json` and add your friends' websites:
 
 ```json
 {
@@ -138,9 +138,9 @@ const serverURL = 'https://your-waline-server.vercel.app';
       "id_name": "cf-links",
       "data": [
         {
-          "name": "好友名称",
+          "name": "Friend Name",
           "avatar": "https://example.com/avatar.png",
-          "desc": "好友简介",
+          "desc": "Short description",
           "link": "https://example.com"
         }
       ]
@@ -149,17 +149,17 @@ const serverURL = 'https://your-waline-server.vercel.app';
 }
 ```
 
-## 部署
+## Deployment
 
 ### Vercel
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/import?hasTrialAvailable=1&id=1253285029&name=astro-theme-sify&owner=santisify&provider=github&remainingProjects=1&s=https%3A%2F%2Fgithub.com%2Fsantisify%2Fastro-theme-sify&teamSlug=santisify&totalProjects=1)
 
-一键部署，无需额外配置。
+Deploy with a single click—no additional configuration required.
 
 ### Cloudflare Pages
 
-首先fork当前仓库到自己的github
+First, fork the repository to your own GitHub account.
 
 ![cf1](../../../../docs/cf-deploy1.png)
 
@@ -171,27 +171,31 @@ const serverURL = 'https://your-waline-server.vercel.app';
 
 ![cf5](../../../../docs/cf-deploy5.png)
 
-### 其他静态托管
+### Other Static Hosting Services
 
-在本地命令行运行`bun install && bun run build`
+Run the following command locally:
 
-构建后直接将 `dist/` 目录内容上传到任意静态文件服务器。
+```bash
+bun install && bun run build
+```
 
-## 自定义主题
+After the build completes, upload the contents of the `dist/` directory to any static web hosting service.
 
-编辑 `src/styles/global.css` 中的 CSS 变量来自定义配色：
+## Customize the Theme
+
+Edit the CSS variables in `src/styles/global.css` to customize the color scheme:
 
 ```css
 @theme {
-  --color-primary: #e9536a;       /* 主色调 */
-  --color-bg-light: #f5f5f5;      /* 浅色背景 */
-  --color-bg-dark: #1a1a2e;       /* 深色背景 */
-  --color-card-light: #ffffff;    /* 浅色卡片 */
-  --color-card-dark: #1e2a45;     /* 深色卡片 */
+  --color-primary: #e9536a;       /* Primary color */
+  --color-bg-light: #f5f5f5;      /* Light background */
+  --color-bg-dark: #1a1a2e;       /* Dark background */
+  --color-card-light: #ffffff;    /* Light card background */
+  --color-card-dark: #1e2a45;     /* Dark card background */
 }
 ```
 
-修改站点字体：
+To change the site's fonts:
 
 ```css
 --font-family-sans: 'Inter', 'Noto Sans SC', sans-serif;
