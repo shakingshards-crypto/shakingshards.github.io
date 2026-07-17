@@ -5,8 +5,8 @@ import rehypeKatex from 'rehype-katex';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
-  site: 'https://shakingshards.github.io',           // ← Sin /shakingshards-crypto/
-  base: '/shakingshards-crypto',                     // ← Agrega esto
+  site: 'https://shakingshards.github.io',   // ← importante
+  base: '/',                                 // ← ahora puede ser '/' porque el repo tiene el nombre correcto
 
   integrations: [mdx()],
 
