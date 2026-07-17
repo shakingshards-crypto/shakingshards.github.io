@@ -6,7 +6,7 @@ import { unified } from '@astrojs/markdown-remark';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
-  site: 'https://shakingshards.github.io',
+  site: 'https://shakingshards.github.io/shakingshards-crypto/',
   integrations: [mdx()],
   vite: {
     plugins: [
